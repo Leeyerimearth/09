@@ -34,11 +34,57 @@
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 	function fncGetPurchaseList(currentPage) {
-		document.getElementById("currentPage").value = currentPage;
-		document.detailForm.submit();
+		
+		$("#currentPage").val(currentPage);
+		$('form').attr("method","POST").attr("action","/purchase/listPurchase").submit();
+		//document.getElementById("currentPage").value = currentPage;
+		//document.detailForm.submit();
 	}
+	
+	$(function(){
+		
+		$( ".ct_list_pop td:nth-child(1)" ).on("click" , function() {
+			//Debug..
+				//alert( $('input[id=prodNo]').val() );
+				alert( $(this).find('input').val()); //$('input[id=prodNo]').val() );
+				///purchase/getPurchase?tranNo=${purchase.tranNo}
+			self.location ="/purchase/getPurchase?tranNo="+$(this).find('input').val();
+		
+		});
+	
+		$( ".ct_list_pop td:contains('배송하기')" ).on("click" , function() {
+			//Debug..
+				
+				alert($(this).find("input[id=currentPage1]").val() ); //$('input[id=prodNo]').val() );
+				///purchase/updateTranCode?tranNo=${purchase.tranNo}&currentPage=${resultPage.currentPage}
+			self.location ="/purchase/updateTranCode?tranNo="+$(this).parent().find("input[id=tranNo]").val()
+					+"&currentPage="+$(this).find("input[id=currentPage1]").val();
+		
+		});
+		
+	
+		//1번째 인자 No를 색변경
+		$( ".ct_list_pop td:nth-child(1)" ).css("color" , "red");
+		$("h7").css("color" , "red");
+		
+		
+		
+		//==> 아래와 같이 정의한 이유는 ??
+		//==> 아래의 주석을 하나씩 풀어 가며 이해하세요.					
+		$(".ct_list_pop:nth-child(4n+6)" ).css("background-color" , "whitesmoke");
+		//console.log ( $(".ct_list_pop:nth-child(1)" ).html() );
+		//console.log ( $(".ct_list_pop:nth-child(2)" ).html() );
+		//console.log ( $(".ct_list_pop:nth-child(3)" ).html() );
+		console.log ( $(".ct_list_pop:nth-child(4)" ).html() ); //==> ok
+		//console.log ( $(".ct_list_pop:nth-child(5)" ).html() ); 
+		//console.log ( $(".ct_list_pop:nth-child(6)" ).html() ); //==> ok
+		//console.log ( $(".ct_list_pop:nth-child(7)" ).html() ); 
+		
+	});
+	
 </script>
 </head>
 
@@ -46,7 +92,7 @@
 
 <div style="width: 98%; margin-left: 10px;">
 
-<form name="detailForm" action="/purchase/listPurchase" method="post">
+<form name="detailForm">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -67,7 +113,8 @@
 		<td colspan="11">전체 ${resultPage.totalCount} 건수, 현재 ${resultPage.currentPage} 페이지</td>
 	</tr>
 	<tr>
-		<td class="ct_list_b" width="100">No</td>
+		<td class="ct_list_b" width="100">No<br>
+			<h7 >(No click:상세정보)</h7> </td>
 		<td class="ct_line02"></td>
 		<td class="ct_list_b" width="150">제품명</td>
 		<td class="ct_line02"></td>
@@ -109,7 +156,12 @@
 		<c:set var="i" value="${i+1}"/>
 		<tr class="ct_list_pop">
 		<td align="center">
+			<input type="hidden" id="tranNo" name="tranNo" value="${purchase.tranNo}"/>
+			<!-- ///////////////////////////////////////////////////////////////////////
 			<a href="/purchase/getPurchase?tranNo=${purchase.tranNo}">${i}</a>
+			//////////////////////////////////////////////////////////////////////////////
+			-->
+			${i}
 		</td>
 		<td></td>
 		<td align="left">
@@ -138,7 +190,17 @@
 			배송완료
 		</c:if>
 		<c:if test="${purchase.tranCode=='004'}">
-			구매완료  <a href="/purchase/updateTranCode?tranNo=${purchase.tranNo}&currentPage=${resultPage.currentPage}">배송하기</a>
+			구매완료  
+			<!--/////////////////////////////////////////////////////////////////////////  
+			<input type="hidden" id ="tranNo" name="tranNo" value="${purchase.tranNo}"/> 
+			/////////////////////////////////////////////////////////////////////////////parent로 해보자-->
+			
+			<input type="hidden" id ="currentPage1" name="currentPage1" value="${resultPage.currentPage}"/>
+			
+			<!--/////////////////////////////////////////////////////////////////////////////////////////////
+			<a href="/purchase/updateTranCode?tranNo=${purchase.tranNo}&currentPage=${resultPage.currentPage}">배송하기</a>
+			 /////////////////////////////////////////////////////////////////////////////////////////////-->
+			 배송하기
 		</c:if>
 		</td>
 		<td></td>

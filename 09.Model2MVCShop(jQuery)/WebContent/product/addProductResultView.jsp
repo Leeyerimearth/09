@@ -12,11 +12,11 @@
 	
 		$(function (){
 			
-			$(."ct_btn01:contains('확인')").on("click", function(){
+			$(".ct_btn01:contains('확인')").on("click", function(){
 				$(window.parent.frames["rightFrame"].document.location).attr("href","/product/listProduct?menu=manage");
 			});
 			
-			$(."ct_btn01:contains('추가등록')").on("click", function(){
+			$(".ct_btn01:contains('추가등록')").on("click", function(){
 				$(window.parent.frames["rightFrame"].document.location).attr("href","../product/addProductView.jsp;");
 			});
 			

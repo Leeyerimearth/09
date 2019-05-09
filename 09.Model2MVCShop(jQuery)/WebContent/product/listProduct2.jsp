@@ -29,12 +29,69 @@
 <title>상품 목록조회</title>
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+
 
 <script type="text/javascript">
-function fncGetProductList(currentPage){
-	document.getElementById("currentPage").value = currentPage;
-	document.detailForm.submit();
-}
+
+	function fncGetProductList(currentPage){
+		
+		$("#currentPage").val(currentPage)
+		$("form").attr("method","POST").attr("action","/product/listProduct2?menu=manage").submit();
+	
+		// jQuery로 수정!
+		//document.getElementById("currentPage").value = currentPage;
+		//document.detailForm.submit();
+	}
+
+	$(function(){ 
+	
+		///////////////////////jQuery 검색 post
+		$(".ct_btn01:contains('검색')").on("click",function(){
+		
+			fncGetProductList(1);
+		})
+	
+		// No 클릭하면? No 클릭 event  prodNo보내기 체크
+		$( ".ct_list_pop td:nth-child(3)" ).on("click" , function() {
+			//Debug..
+				//alert( $('input[id=prodNo]').val() );
+				alert( $(this).find('input').val()); //$('input[id=prodNo]').val() );
+			self.location ="/product/getProduct?prodNo="+$(this).find('input').val();
+		
+		});
+		
+	
+		//productName글씨 빨간색으로 변경	
+		$( ".ct_list_pop td:nth-child(3)" ).css("color" , "red");
+		$("h7").css("color" , "red");	
+	
+	
+		//==> 아래와 같이 정의한 이유는 ??
+		//==> 아래의 주석을 하나씩 풀어 가며 이해하세요.					
+		$(".ct_list_pop:nth-child(4n+6)" ).css("background-color" , "whitesmoke");
+		//console.log ( $(".ct_list_pop:nth-child(1)" ).html() );
+		//console.log ( $(".ct_list_pop:nth-child(2)" ).html() );
+		//console.log ( $(".ct_list_pop:nth-child(3)" ).html() );
+		console.log ( $(".ct_list_pop:nth-child(4)" ).html() ); //==> ok
+		//console.log ( $(".ct_list_pop:nth-child(5)" ).html() ); 
+		//console.log ( $(".ct_list_pop:nth-child(6)" ).html() ); //==> ok
+		//console.log ( $(".ct_list_pop:nth-child(7)" ).html() ); 
+	
+	
+	
+});
+
+	
+	
+	
+
+
+
+
+
+
+
 </script>
 </head>
 
@@ -42,7 +99,7 @@ function fncGetProductList(currentPage){
 
 <div style="width:98%; margin-left:10px;">
 
-<form name="detailForm" action="/product/listProduct2?menu=manage" method="post">
+<form name="detailForm">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -89,7 +146,13 @@ function fncGetProductList(currentPage){
 						<img src="/images/ct_btnbg01.gif" width="17" height="23">
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
+					
+					<!-- 
+					
 						<a href="javascript:fncGetProductList('1');">검색</a>
+						
+					-->
+					검색
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23">
@@ -110,7 +173,9 @@ function fncGetProductList(currentPage){
 	<tr>
 		<td class="ct_list_b" width="100">No</td>
 		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="150">상품명</td>
+		<td class="ct_list_b" width="150">상품명<br>
+			<h7 >(상품명 click:상세정보)</h7>
+		</td>
 		<td class="ct_line02"></td>
 		<td class="ct_list_b" width="150">가격</td>
 		<td class="ct_line02"></td>
@@ -150,7 +215,12 @@ function fncGetProductList(currentPage){
 	 	<tr class="ct_list_pop">
 	 		<td align="center">${i}</td>
 	 		<td></td>
-	 		<td align="left"><a href="/product/getProduct?prodNo=${product.prodNo}">${product.prodName}</a>
+	 		<td align="left">
+	 		<input type="hidden" id="prodNo" name="prodNo" value="${product.prodNo}"/>
+	 		<!-- 
+	 		<a href="/product/getProduct?prodNo=${product.prodNo}">${product.prodName}</a>
+			 -->
+			${product.prodName}
 			</td>
 			<td></td>
 			<td align="left">${product.price }</td>

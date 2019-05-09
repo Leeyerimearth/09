@@ -16,21 +16,38 @@
 
 <title>Insert title here</title>
 
-<script type="text/javascript" src="../javascript/calendar.js">
-</script>
+<script type="text/javascript" src="../javascript/calendar.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 
 <script type="text/javascript">
-<!--
+
 function fncAddPurchase() {
-	document.addPurchase.submit();
+	
+	$('form').attr("method","POST").attr("action","/purchase/addPurchase").submit();
+	//document.addPurchase.submit();
 }
--->
+
+	$(function(){
+		
+		$(".ct_btn01:contains('备概')").on("click", function(){
+			
+			fncAddPurchase();
+		});
+		
+		$(".ct_btn01:contains('秒家')").on("click", function(){
+			
+			history.go(-1);
+		});
+		
+
+	});
+
 </script>
 </head>
 
 <body>
 
-<form name="addPurchase" method="post" action="/purchase/addPurchase">
+<form name="addPurchase">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -123,7 +140,7 @@ function fncAddPurchase() {
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">${user.userId}</td>
-		<input type="hidden" name="buyerId" value=" ${user.userId}"/>
+		<input type="hidden" name="buyerId" value=" ${sessionScope.user.userId}"/>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -223,7 +240,10 @@ function fncAddPurchase() {
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
+						<!--  	
 						<a href="javascript:fncAddPurchase();">备概</a>
+						-->	
+						备概
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
@@ -233,7 +253,10 @@ function fncAddPurchase() {
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
+						<!-- 
 						<a href="javascript:history.go(-1)">秒家</a>
+						-->	
+						秒家
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
