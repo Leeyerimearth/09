@@ -17,6 +17,8 @@
 		<result property="addr" 				column="addr" 					jdbcType="VARCHAR" />
 		<result property="email" 			column="email" 				jdbcType="NUMERIC"  />
 		<result property="regDate" 		column="reg_date" 			jdbcType="DATE" />
+		<result property="userPoint"    column="point"    jdbcType="NUMERIC"/>
+		<result property="totalPayment" column="total_payment" jdbcType="NUMERIC" />
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
@@ -30,7 +32,7 @@
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="getUser"	parameterType="string"	resultMap="userSelectMap">
 		SELECT
-		user_id , user_name , password , role ,  cell_phone ,  addr , email , reg_date 		
+		user_id , user_name , password , role ,  cell_phone ,  addr , email , reg_date , point, total_payment		
 		FROM users 
 		WHERE user_id = #{value}
 	 </select>
@@ -42,7 +44,9 @@
 	   		user_name 	= #{userName} ,
 			cell_phone	= #{phone},
 			addr 				= #{addr} ,
-			email				=	#{email}
+			email				=	#{email},
+			point =#{userPoint:NUMERIC},
+			total_payment = #{totalPayment:NUMERIC}
 	   	</set>
 	   	WHERE user_id = #{userId}
 	 </update>

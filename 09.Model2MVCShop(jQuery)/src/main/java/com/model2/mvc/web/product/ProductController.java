@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
@@ -43,9 +44,15 @@ public class ProductController {
 	}
 
 	@RequestMapping(value="addProduct", method=RequestMethod.POST) // 항상 post로만 등록가능
-	public String addProduct(@ModelAttribute("product") Product product) throws Exception
+	public String addProduct(@ModelAttribute("product") Product product,
+					@RequestParam("multifile") MultipartFile multipartFile) throws Exception
 	{
 		System.out.println("/product/addProduct");
+		
+		System.out.println(multipartFile.getName()); //attribute name의 값
+		System.out.println(multipartFile.getOriginalFilename());//파일의 name
+		
+		product.setFileName(multipartFile.getOriginalFilename());
 		
 		productService.addProduct(product);
 		
@@ -84,7 +91,8 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="updateProduct",method=RequestMethod.POST)
-	public String updateProduct(@ModelAttribute("product") Product product, HttpSession session, Model model) throws Exception
+	public String updateProduct(@ModelAttribute("product") Product product, HttpSession session,
+						Model model,@RequestParam("multifile") MultipartFile multipartFile) throws Exception
 	{
 		System.out.println("/product/updateProduct 실행 했다리!");
 		
@@ -92,6 +100,7 @@ public class ProductController {
 		
 		product.setProdNo(sessionProduct.getProdNo());
 		product.setRegDate(sessionProduct.getRegDate());
+		product.setFileName(multipartFile.getOriginalFilename());
 		
 		productService.updateProduct(product);
 		
@@ -148,9 +157,11 @@ public class ProductController {
 			return "forward:/product/listProduct2.jsp"; //판매상품관리로 forward
 	}
 	
-	@RequestMapping("bestSellerList")
-	public String bestSellerList(Model model)
+	@RequestMapping(value="bestSellerList", method = RequestMethod.GET)
+	public String bestSellerList(Model model,@RequestParam("menu") String menu,
+									HttpSession session)
 	{
+		session.setAttribute("menu", menu);
 		
 		System.out.println("/product/bestSellerList");
 		

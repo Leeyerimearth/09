@@ -23,6 +23,32 @@
 
 function fncAddPurchase() {
 	
+	//여기에 조건들어갑니다. alert
+	
+	var usePoint = $("input[name='usePoint']").val();
+	var quantity = $("input[name='buyQuantity']").val();
+	
+	
+	if(usePoint%100 != 0 || usePoint < 0){
+		alert("포인트는 100p 단위로 사용이 가능합니다.");
+		return;
+	}
+	
+	if(usePoint > "${sessionScope.user.userPoint}"){
+		alert("보유 금액 이상 사용은 불가능합니다.");
+		$("input[name='usePoint']").val(${sessionScope.user.userPoint});
+		return;
+	}
+	
+	if(usePoint > quantity * "${sessionScope.vo.price}"){
+		alert("구매금액 이상의 포인트는 사용할 수 없습니다.");
+		$("input[name='usePoint']").val(${sessionScope.user.userPoint});
+		return;	
+	}
+	
+	
+	
+	
 	$('form').attr("method","POST").attr("action","/purchase/addPurchase").submit();
 	//document.addPurchase.submit();
 }
@@ -38,6 +64,10 @@ function fncAddPurchase() {
 			
 			history.go(-1);
 		});
+		
+		$("input[name=userPoint]:contains('포인트')").on("click", function(){
+			$("input[name=userPoint]").val("${sessionScope.user.userPoint}");
+		})
 		
 
 	});
@@ -156,6 +186,31 @@ function fncAddPurchase() {
 			</select>
 		</td>
 	</tr>
+	<tr>
+		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
+	</tr>
+	<tr>
+		<td width="104" class="ct_write">보유 포인트</td>
+		<td bgcolor="D6D6D6" width="1"></td>
+		<td class="ct_write01">
+			${sessionScope.user.userPoint}
+		</td>
+	</tr>
+	<tr>
+		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
+	</tr>
+	<tr>
+		<td width="104" class="ct_write">사용 포인트</td>
+		<td bgcolor="D6D6D6" width="1"></td>
+		<td class="ct_write01">
+			<input type ="text" name="usePoint" class="ct_input_g" value=""
+					style="width: 70px; height: 19px" maxLength="20"/>
+			p(* 100p 단위로 사용가능합니다.)
+			  <!-- 이렇게하면, 포인트 조회를 누르는게아니라, 이안에 td다 누르면 작동 -->
+		</td>
+	</tr>
+	
+	
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 	</tr>

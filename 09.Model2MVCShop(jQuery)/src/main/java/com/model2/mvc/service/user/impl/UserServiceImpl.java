@@ -51,7 +51,24 @@ public class UserServiceImpl implements UserService{
 		return map;
 	}
 
-	public void updateUser(User user) throws Exception {
+	public void updateUser(User user, String pointUseState) throws Exception {
+		
+		
+		//1.제품구매로 보유포인트 증가
+		if(pointUseState.equals("addPoint"))
+		{	
+			int newPoint = user.getUserPoint(); // 새로운 제품 구매하여 얻은 포인트
+			int originalUserPoint = this.getUser(user.getUserId()).getUserPoint(); //기존포인트
+			user.setUserPoint(newPoint+originalUserPoint); // point더하기
+		}
+		else if(pointUseState.equals("subPoint")){
+			//걍 updateUser만 함
+		}
+		else {
+			// "nothing"일때도 .. 그냥 updateUser만 한다. 연산을 controller에서하는건지.. service에서 하는건지.
+			 // 각자의 역할을 다시 한번 생각해 봐야겠다.
+		}
+		/////////////////////////////////////////////////////////////////////////////////////
 		userDao.updateUser(user);
 	}
 

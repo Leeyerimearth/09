@@ -17,8 +17,9 @@ public class Purchase {
 	private String receiverPhone;//
 	private String tranCode; //add에서 셋 등 .상황에따라
 	private int tranNo; //자동
-	private int buyQuantity;
 	
+	private int buyQuantity;
+	private int payAmount;
 	/////////////////////////////////////////////////////////////////(추가)
 	public int getBuyQuantity() {
 		return buyQuantity;
@@ -27,6 +28,16 @@ public class Purchase {
 	public void setBuyQuantity(int buyQuantity) {
 		this.buyQuantity = buyQuantity;
 	}
+	
+	
+	public int getPayAmount() {
+		return payAmount;
+	}
+
+	public void setPayAmount(int payAmount) {
+		this.payAmount = payAmount;
+	}
+
 	////////////////////////////////////////////////////////////////////////
 	public Purchase(){
 	}
@@ -106,6 +117,6 @@ public class Purchase {
 				+ paymentOption + ", purchaseProd=" + purchaseProd
 				+ ", receiverName=" + receiverName + ", receiverPhone="
 				+ receiverPhone + ", tranCode=" + tranCode + ", tranNo="
-				+ tranNo + "]";
+				+ tranNo +"buyQuantity"+buyQuantity+"]";
 	}
 }

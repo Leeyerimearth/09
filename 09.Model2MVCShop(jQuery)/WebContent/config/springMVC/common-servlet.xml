@@ -52,6 +52,17 @@
     <bean id="viewResolver"
 				class="org.springframework.web.servlet.view.InternalResourceViewResolver" />
 	
+	<!-- MultipartResolver 설정 -->
+	<bean id ="multipartResolver" 
+				class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+			<property name="maxUploadSize" value="10000000"/>
+			<property name="maxInMemorySize" value="100000"/>
+			<property name="uploadTempDir"	value="uploadTempDir"/>			
+	</bean>
+	
+	<bean id = "uploadTempDir" class="org.springframework.core.io.FileSystemResource">
+		<constructor-arg value= "C:\Users\yelim\git\09\09.Model2MVCShop(jQuery)\WebContent\images\uploadFiles\" />
+	</bean>
 	
 	<!--	
 		■ / 형식의 Mapping 은 모든(정적,동적 자원) 요청시 처리책임

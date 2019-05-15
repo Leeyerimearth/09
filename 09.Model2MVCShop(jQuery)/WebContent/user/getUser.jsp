@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=EUC-KR" %>
 <%@ page pageEncoding="EUC-KR"%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -120,6 +121,19 @@
 		<td width="104" class="ct_write">가입일자</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">${user.regDate}</td>
+	</tr>
+	
+	<tr>
+		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
+	</tr>
+	
+	<tr>
+		<td width="104" class="ct_write">보유 포인트</td>
+		<td bgcolor="D6D6D6" width="1"></td>
+		<td class="ct_write01">
+		<fmt:formatNumber value="${user.userPoint}" groupingUsed="true"/> P
+		</td>
+		
 	</tr>
 	
 	<tr>

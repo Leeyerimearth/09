@@ -14,10 +14,12 @@ import com.model2.mvc.service.product.ProductDao;
 import com.model2.mvc.service.product.ProductService;
 import com.model2.mvc.service.purchase.PurchaseDao;
 import com.model2.mvc.service.purchase.PurchaseService;
+import com.model2.mvc.service.user.UserDao;
 
 @Service("productServiceImpl")
 public class ProductServiceImpl implements ProductService {
 
+	
 	@Autowired
 	@Qualifier("productDaoImpl")
 	ProductDao productDao;
@@ -43,6 +45,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void addProduct(Product product) throws Exception {
 		// TODO Auto-generated method stub
+
 		productDao.insertProduct(product);
 	}
 

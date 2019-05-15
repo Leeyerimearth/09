@@ -69,6 +69,17 @@
 		
 		});
 		
+		
+		$("#before").on("click", function(){
+			
+			fncGetUserList('${ resultPage.currentPage-1}');
+		})
+		
+		$("#after").on("click", function(){
+			
+			fncGetUserList('${resultPage.endUnitPage+1}');
+		})
+		
 	
 		//1번째 인자 No를 색변경
 		$( ".ct_list_pop td:nth-child(1)" ).css("color" , "red");
@@ -132,8 +143,6 @@
 		<td class="ct_list_b">구매일</td>
 		<td class="ct_line02"></td>
 		<td class="ct_list_b">배송현황</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b">정보수정</td>
 	</tr>
 	<tr>
 		<td colspan="11" bgcolor="808285" height="1"></td>

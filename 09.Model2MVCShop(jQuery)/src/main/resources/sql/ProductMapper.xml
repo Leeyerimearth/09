@@ -91,7 +91,7 @@
 		SELECT * 
 		FROM (SELECT * FROM product
 				  ORDER BY sale_quantity DESC NULLS LAST)inner_table
-		WHERE ROWNUM &lt;=10;		  
+		WHERE ROWNUM &lt; = 10	  
 	</select>
 	
 	<select  id="getTotalCount"  parameterType="search"	 resultType="int">

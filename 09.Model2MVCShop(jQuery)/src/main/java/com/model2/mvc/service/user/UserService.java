@@ -19,7 +19,7 @@ public interface UserService {
 	public Map<String , Object> getUserList(Search search) throws Exception;
 	
 	// 회원정보수정
-	public void updateUser(User user) throws Exception;
+	public void updateUser(User user,String pointUseState) throws Exception;
 	
 	// 회원 ID 중복 확인
 	public boolean checkDuplication(String userId) throws Exception;

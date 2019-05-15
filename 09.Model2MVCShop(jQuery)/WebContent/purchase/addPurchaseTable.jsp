@@ -30,12 +30,12 @@
 	</tr>
 	<tr>
 		<td>구매 개수</td>
-		<td>${param.quantity}</td>
+		<td>${param.buyQuantity}</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>총 구매가격</td>
-		<td>${(param.quantity)*(sessionScope.vo.price)}</td>
+		<td>${(param.buyQuantity)*(sessionScope.vo.price)-(param.usePoint)}</td>
 		<td></td>
 	</tr>
 	

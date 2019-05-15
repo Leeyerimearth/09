@@ -106,9 +106,20 @@ public class UserController {
 
 		System.out.println("/user/updateUser : POST");
 		//Business Logic
-		userService.updateUser(user);
 		
-		String sessionId=((User)session.getAttribute("user")).getUserId();
+		//값이 널이어서 updateNull로 됨
+		User sessionUser =(User) session.getAttribute("user");
+		user.setUserPoint(sessionUser.getUserPoint());
+		user.setTotalPayment(sessionUser.getTotalPayment());
+		///////////////////////////////////////////////////////password랑 주민번호는 굳이 session에 넣지않아도될까?
+		user.setSsn(sessionUser.getSsn());
+		user.setPassword(sessionUser.getPassword());
+		///////////////////////////////////////////////////////////////////
+		
+		userService.updateUser(user,"nothing");
+		
+		
+		String sessionId=(sessionUser.getUserId()); //참..얘를 왜하는진알겠는데 그럼 jsp에서 값만 session에 들어가잖아..
 		if(sessionId.equals(user.getUserId())){
 			session.setAttribute("user", user);
 		}

@@ -20,6 +20,10 @@ public class User {
 	private String phone1;
 	private String phone2;
 	private String phone3;
+	
+	//////////////////////////////////////////////추가
+	private int userPoint;
+	private int totalPayment;
 
 	
 	
@@ -120,4 +124,21 @@ public class User {
 		this.phone3 = phone3;
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////
+	// 유저 포인트 추가, 총 구매 금액
+	public int getUserPoint() {
+		return userPoint;
+	}
+
+	public void setUserPoint(int userPoint) {
+		this.userPoint = userPoint;
+	}
+
+	public int getTotalPayment() {
+		return totalPayment;
+	}
+
+	public void setTotalPayment(int totalPayment) {
+		this.totalPayment = totalPayment;
+	}
+	////////////////////////////////////////////////////////////
 }

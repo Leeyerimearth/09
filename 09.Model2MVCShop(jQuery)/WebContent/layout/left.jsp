@@ -70,7 +70,7 @@
 			
 			$(".Depth03:contains('베스트 top 10')").on("click",function(){
 				
-				$(window.parent.frames["rightFrame"].document.location).attr("href","/product/bestSellerList");
+				$(window.parent.frames["rightFrame"].document.location).attr("href","/product/bestSellerList?menu=search");
 			});
 			
 			$(".Depth03:contains('상 품 검 색')").on("click",function(){

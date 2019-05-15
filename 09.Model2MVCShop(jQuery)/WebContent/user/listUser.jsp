@@ -24,6 +24,7 @@
 		   	//document.detailForm.submit();
 			$("form").attr("method" , "POST").attr("action" , "/user/listUser").submit();
 		}
+		
 		//===========================================//
 		//==> 추가된부분 : "검색" ,  userId link  Event 연결 및 처리
 		 $(function() {
@@ -37,6 +38,17 @@
 				fncGetUserList(1);
 			});
 			
+			$("#before").on("click", function(){
+				
+				fncGetUserList('${ resultPage.currentPage-1}');
+			})
+			
+			$("#after").on("click", function(){
+				
+				fncGetUserList('${resultPage.endUnitPage+1}');
+			})
+			
+				
 			
 			//==> userId LINK Event 연결처리
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)

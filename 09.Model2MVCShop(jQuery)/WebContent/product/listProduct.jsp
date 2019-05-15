@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=euc-kr" %>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%-- 
@@ -62,6 +63,16 @@ function fncGetProductList(currentPage){
 			self.location ="/product/getProduct?prodNo="+$(this).find('input').val();
 			
 		});
+		
+		$("#before").on("click", function(){
+			
+			fncGetUserList('${ resultPage.currentPage-1}');
+		})
+		
+		$("#after").on("click", function(){
+			
+			fncGetUserList('${resultPage.endUnitPage+1}');
+		})
 		
 		
 		//productName±Û¾¾ »¡°£»öÀ¸·Î º¯°æ	
@@ -224,7 +235,9 @@ function fncGetProductList(currentPage){
 			
 			</td>
 			<td></td>
-			<td align="left">${product.price}</td>
+			<td align="left">
+			<fmt:formatNumber value="${product.price}" groupingUsed="true"/>
+			</td>
 			<td></td>
 			<td align="left">${product.prodDetail}</td>
 			<td></td>

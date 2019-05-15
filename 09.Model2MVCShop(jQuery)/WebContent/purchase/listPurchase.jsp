@@ -65,6 +65,17 @@
 		
 		});
 		
+		
+		$("#before").on("click", function(){
+			
+			fncGetUserList('${ resultPage.currentPage-1}');
+		})
+		
+		$("#after").on("click", function(){
+			
+			fncGetUserList('${resultPage.endUnitPage+1}');
+		})
+		
 	
 		//1번째 인자 No를 색변경
 		$( ".ct_list_pop td:nth-child(1)" ).css("color" , "red");
@@ -127,11 +138,9 @@
 		<td class="ct_list_b">구매일</td>
 		<td class="ct_line02"></td>
 		<td class="ct_list_b">배송현황</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b">정보수정</td>
 	</tr>
 	<tr>
-		<td colspan="11" bgcolor="808285" height="1"></td>
+		<td colspan="15" bgcolor="808285" height="1"></td>
 	</tr>
 	<%-- 
 	<% 	
@@ -184,13 +193,13 @@
 		<td></td>
 		<td align="left">현재
 		<c:if test="${purchase.tranCode=='002'}">
-			배송중		
+			배송중 상태 입니다.
 		</c:if>
 		<c:if test="${purchase.tranCode=='003'}">
-			배송완료
+			배송완료 상태 입니다.
 		</c:if>
 		<c:if test="${purchase.tranCode=='004'}">
-			구매완료  
+			구매완료 상태 입니다.
 			<!--/////////////////////////////////////////////////////////////////////////  
 			<input type="hidden" id ="tranNo" name="tranNo" value="${purchase.tranNo}"/> 
 			/////////////////////////////////////////////////////////////////////////////parent로 해보자-->
@@ -200,8 +209,9 @@
 			<!--/////////////////////////////////////////////////////////////////////////////////////////////
 			<a href="/purchase/updateTranCode?tranNo=${purchase.tranNo}&currentPage=${resultPage.currentPage}">배송하기</a>
 			 /////////////////////////////////////////////////////////////////////////////////////////////-->
-			 배송하기
+			 배송하기 
 		</c:if>
+
 		</td>
 		<td></td>
 		<%--
@@ -215,7 +225,7 @@
 		--%>
 	</tr>
 	<tr>
-		<td colspan="11" bgcolor="D6D7D6" height="1"></td>
+		<td colspan="15" bgcolor="D6D7D6" height="1"></td>
 	</tr>
 	<%--<%} %> --%>
 	</c:forEach>
